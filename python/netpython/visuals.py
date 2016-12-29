@@ -11,10 +11,11 @@ import random
 import shutil
 import operator
 import matplotlib.colors
-import pygraphviz
-
-def normalizeValue(value,valueLimits):
+import pygraphviz #可视化的包
+#可视化的一些函数，比如节点的大小、颜色，边的粗细、颜色等
+def normalizeValue(value,valueLimits):#Min-Max标准化
     """Transforms a numerical value to the range (0,1).
+	
 
     It is intended that the user should set valueLimits such that the
     true values fall between the limits. If this is not the case,
@@ -40,8 +41,8 @@ def normalizeValue(value,valueLimits):
     return normalizedValue 
 
 
-def setColorMap(colorMap):
-    """Set a colormap for edges.
+def setColorMap(colorMap):#为边设置颜色
+    """Set a colormap for edges.为边设置颜色
 
     Two options of our own ('orange' and 'primary') are available in
     addition to the 150 pylab readymade colormaps (which can be listed
@@ -112,7 +113,7 @@ def setColorMap(colorMap):
     return myMap
 
 
-def getConstantColorMap(rgb=(0,0,0)):
+def getConstantColorMap(rgb=(0,0,0)):#
     """Return a colormap with constant color.
 
     Parameters
@@ -141,7 +142,7 @@ def getConstantColorMap(rgb=(0,0,0)):
 def isListOfColors(theList):
     """
     Returns True if each element in the given list can be converted to a color
-    by Matplotlib. Otherwise returns False.
+    by Matplotlib. Otherwise returns False.若列表中的元素都在色库内，返回TRUE，反之，返回FALSE
     """
     cc=matplotlib.colors.ColorConverter()
     for element in theList:
@@ -152,7 +153,7 @@ def isListOfColors(theList):
     return True
         
 
-def getNodeColors(net,colorwith="strength",useColorMap="orange",parentnet=[]):
+def getNodeColors(net,colorwith="strength",useColorMap="orange",parentnet=[]):#返回节点的颜色
     """Returns a dictionary {node:color}. The colors are set based
     on either node strengh (colorwith="strength", default) 
     or any nodeProperty. For cases where e.g. nodes which have been thresholded
@@ -261,7 +262,7 @@ def getNodeColors(net,colorwith="strength",useColorMap="orange",parentnet=[]):
 
 # ------------------------------------------
 
-def getNodeSizes(net,size_by="strength",minsize=2.0,maxsize=6.0):
+def getNodeSizes(net,size_by="strength",minsize=2.0,maxsize=6.0):#返回节点的大小
     """Returns a dictionary {node:size} for visualizations. The sizes
     are set using either node strength"""
 
@@ -328,7 +329,7 @@ def setColor(value,valueLimits,colorMap):
     return color
 
 
-def setEdgeWidth(value,weightLimits,minwidth,maxwidth):
+def setEdgeWidth(value,weightLimits,minwidth,maxwidth):#设置线条的粗细
     """Transforms edge weights to widths in the range (minwidth,
     maxwidth). If given minwidth and maxwidth are the same, simply use
     that given width.
@@ -344,7 +345,7 @@ def setEdgeWidth(value,weightLimits,minwidth,maxwidth):
         width=minwidth 
     return width
 
-def get_edge_angle(xcoords, ycoords):
+def get_edge_angle(xcoords, ycoords):#返回边的角度
     """Return the edge angle in [-pi/2, 3*pi/2]."""
     dx, dy = xcoords[1]-xcoords[0], ycoords[1]-ycoords[0]
     if dx == 0:
@@ -368,7 +369,7 @@ def points_to_data(ax, x_points):
 
 def draw_edge(axes, xcoords, ycoords, width, color, 
               symmetric, zorder, nodesize):
-    """Used by visualizeNet to draw edges."""
+    """Used by visualizeNet to draw edges.画边"""
     if symmetric:
         line_obj, = axes.plot(xcoords, ycoords, '-', lw=width,
                               color=color, zorder=zorder)
@@ -399,7 +400,7 @@ def draw_edge(axes, xcoords, ycoords, width, color,
     return line_obj
 
 def draw_node(axes, x, y, shape, color, size, edgecolor, edgewidth, zorder):
-    """Used by visualizeNet to draw nodes."""
+    """Used by visualizeNet to draw nodes.画点"""
     #if size == 0: return
     node_obj, = axes.plot([x], [y], shape,
                           markerfacecolor=color,
@@ -796,6 +797,7 @@ def visualizeNet(net, coords=None, axes=None, frame=False, animated=False,
                           [size_min, size_max])
                     
     def determine_color(scheme, i, net, values, limits, defaults):
+        #确定颜色        
         if not isinstance(scheme, dict):
             return scheme
         else:
@@ -819,7 +821,7 @@ def visualizeNet(net, coords=None, axes=None, frame=False, animated=False,
             return cm(float(cval))
 
     def luminance(c):
-        """Return luminance of color `c`."""
+        """Return luminance亮度 of color `c`."""
         c_vec = matplotlib.colors.colorConverter.to_rgb(c)
         return 0.2126*c_vec[0]+0.7152*c_vec[1]+0.0722*c_vec[2]
 
@@ -827,7 +829,7 @@ def visualizeNet(net, coords=None, axes=None, frame=False, animated=False,
         """Return the baseline position and label rotation (in angles)
         for an edge label. The label will be on the right side of the
         edge, in proper orientation for reading, and located `offset`
-        points from the edge.
+        points from the edge.边上label的位置
         """
         theta = get_edge_angle(xcoords, ycoords)
         if theta > -np.pi/2 and theta < np.pi/2:
@@ -1093,7 +1095,7 @@ def visualizeNet(net, coords=None, axes=None, frame=False, animated=False,
     
 
 def calculateCoordinates(net):
-    """Calculate coordinates for a network."""
+    """Calculate coordinates for a network计算网络的坐标."""
     # Construct a pygraphviz graph.
     G = pygraphviz.AGraph(strict=True, directed=False)
     for i,j,w in net.edges:

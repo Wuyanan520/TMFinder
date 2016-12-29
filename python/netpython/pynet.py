@@ -4,7 +4,7 @@ import itertools
 
 
 class VirtualNet(object):
-	"""
+	"""#虚拟网络
 	Virtual network class. Node names are sparse in the
 	interface, but dense in the backend.
 	Backend must implement following functions:
@@ -480,7 +480,7 @@ FullNet=NumpyFullDirNet
 
 
 
-if __name__ == '__main__':
-    """Run unit tests if called."""
-    from tests.test_pynet import *
-    test_pynet()
+#if __name__ == '__main__':
+#    """Run unit tests if called."""
+#    from tests.test_pynet import *
+#    test_pynet()

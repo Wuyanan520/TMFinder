@@ -4,7 +4,7 @@ import info_theory as ith
 import operator
 
 def printname(fun):
-    """Decorator for identifying the called method.
+    """Decorator for identifying the called method.显示调用的方法
     """
     def new_fun(obj, *args):
         print "<%s.%s>" % (obj.__class__.__name__, fun.__name__)
@@ -12,7 +12,7 @@ def printname(fun):
     return new_fun
 
 class NodeCover(object):
-    """Representation of possibly overlapping node partitions."""
+    """Representation of possibly overlapping node partitions显示社团间交集"""
     
     def __init__(self, cmap=None, inputFile=None, N_nodes=None):
         """Create node cover from data.
@@ -539,7 +539,7 @@ class NodeCover(object):
 
 
 class NodePartition(NodeCover):
-    """Representation of node partitions.
+    """Representation of node partitions.显示节点所属的社团
 
     Each node must belong to exactly one partition.  Node names must
     be integers from 0 to N-1, where N is the number of nodes in the
@@ -814,7 +814,7 @@ class NodePartition(NodeCover):
 
 
 class communityTree:
-    """
+    """社团树
     >>> test=[[set([1,2,3,4,5])],[set([1,2,3]),set([4,5])],[set([1]),set([2]),set([3]),set([4]),set([5])]]
     >>> test.reverse()
     >>> t=communityTree(test)
@@ -962,6 +962,7 @@ class communityTree:
 
 
 def expandLeavesOnLeveltree(tree):
+    #拓展叶子节点
     def isLeaf(tree,com,level):
         if level==len(tree)-1:
             return False        

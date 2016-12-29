@@ -1,7 +1,7 @@
 import pynet,netext,percolator
 import random
 import numpy as np
-
+#滚雪球抽样、生成子图
 def mst(net,maximum=False):
     """Find a minimum/maximum spanning tree
 
@@ -54,7 +54,7 @@ def mst_kruskal(net,randomize=True,maximum=False):
 
 
 def snowball(net, seed, depth, includeLeafEdges=False):
-    """Snowball sampling
+    """Snowball sampling滚雪球抽样
 
     Works for both directed and undirected networks. For directed
     networks all edges all followed during the sampling (as opposed to
@@ -140,7 +140,7 @@ def snowball(net, seed, depth, includeLeafEdges=False):
 
 
 def collapseIndices(net, returnIndexMap=False):
-    """Changes the indices of net to run from 0 to len(net)-1.
+    """Changes the indices of net to run from 0 to len(net)-1.改变网络的指数
     """
 
     newNet = type(net)()
@@ -165,7 +165,7 @@ def collapseIndices(net, returnIndexMap=False):
 
 
 def threshold_by_value(net,threshold,accept="<",keepIsolatedNodes=False):
-    '''Generates a new network by thresholding the input network. 
+    '''Generates a new network by thresholding the input network. 根据阈值生成新网络
        If using option keepIsolatedNodes=True, all nodes in the
        original network will be included in the thresholded network;
        otherwise only those nodes which have links will remain (this
@@ -286,7 +286,7 @@ def getSubnet(net,nodes):
 
 def collapseBipartiteNet(net,nodesToRemove):
     """
-    Returns an unipartite projection of a bipartite network.
+    Returns an unipartite projection of a bipartite network返回二分网络的单向投影.
     """
     newNet=pynet.SymmNet()
     for node in nodesToRemove:

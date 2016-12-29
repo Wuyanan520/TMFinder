@@ -1,11 +1,11 @@
-"""
+"""社团发现
 This module contains percolator functions and some related data structures.
 This contains general framework for edge and node percolation studies, but
-also functions for k-clique percolation.
+also functions for k-clique percolation(一种社团发现算法，因为简单效果不太好).
 """
 
 import pynet,netext,array,math,netio,communities,numpy,transforms
-from operator import mul
+from operator import mul#mul(a,b)和a*b一样
 
 
 
@@ -281,7 +281,7 @@ class Ktree:
             #newcs.comm.append(newc)
         return newcs
 
-class Percolator:
+class Percolator:#过滤器（社团发现）
     def __init__(self,edgesAndEvaluations,buildNet=True,symmetricNet=True,nodes=None,returnKtree=False):
         self.edges=edgesAndEvaluations
         self.buildNet=buildNet
@@ -321,7 +321,7 @@ class Percolator:
 
 
 class EvaluationList:
-    """
+    """按给定规则迭代
     EvaluationList object is an iterable object that iterates through a list returning
     EvaluationEvent objects according to given rules.
     Todo: better behavior when stacking EvaluationList objects.
@@ -459,7 +459,7 @@ class EvaluationList:
         
 def getComponents(net):
     """Get connected components of a network
-    
+    得到网络的联通成分
     Parameters
     ----------
     net : A network object
@@ -479,7 +479,7 @@ def getComponents(net):
 def getKCliqueComponents(net,k):
     """
     Returns community structure calculated with unweighted k-clique percolation.
-
+    k派系
     Parameters
     ----------
     net : A network object
@@ -549,7 +549,7 @@ class KClique(object):
     def getK(self):
 	return len(self.nodes)
 
-def getIntensity(kclique,net):
+def getIntensity(kclique,net):#强度
     intensity=1
     for edge in kclique.getEdges():
 	intensity*=net[edge[0],edge[1]]
@@ -562,7 +562,7 @@ class EvaluationEvent:
 
 def kcliquesAtSubnet(nodes,net,k):
     """List all k-cliques in a subnet of `net` induced by `nodes`.
-
+    子图的社团发现
     Any implementation is fine, but as this routine is a part of a
     clique percolator anyway we will use itself to find cliques larger
     than 2. Cliques of size 1 and 2 are trivial.
@@ -596,7 +596,7 @@ def kcliquesAtSubnet(nodes,net,k):
 		yield kclique
 
 def kcliquesByEdges(edges, k):
-    """Generate k-cliques from edges.
+    """Generate k-cliques from edges.按边生成大小为k的社团
 
     Generator function that generates a list of cliques of size k in
     the order they are formed when edges are added in the order
@@ -750,7 +750,7 @@ def cliquePercolator(net,k,evaluations,weightFunction="minweight",evaluationType
         yield community
         
 
-def getKCliqueBipartiteNet(net,k):
+def getKCliqueBipartiteNet(net,k):#返回一个二分网络
     """
     Returns a bipartite network where to partitions are k-cliques and 
     (k-1)-cliques in the net that is given as a parameter. There is a link
