@@ -1,4 +1,4 @@
-"""Motif topology chart."""
+"""Motif to pology chart."""
 
 import motif as mf
 import fig_utils

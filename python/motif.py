@@ -14,7 +14,7 @@ import itertools
 import matplotlib
 import pygraphviz as pgv
 
-def nof_lines(fileName):
+def nof_lines(fileName):#统计文件的行数
     c = 0
     with open(fileName,'r') as f:
         for line in f:
@@ -40,7 +40,7 @@ class Bunch(object):
 copynet = transforms.copyNet
        
 def get_components(g):
-    """Find connected components of graph `g`."""
+    """Find connected components of graph `g`.找联通成分"""
     unseen_nodes = set(g._nodes.keys())
     while unseen_nodes:
         to_process = set([unseen_nodes.pop()])
@@ -49,13 +49,13 @@ def get_components(g):
             component_nodes.append(to_process.pop())
             for neighbor in g[component_nodes[-1]]:
                 if neighbor in unseen_nodes:
-                    unseen_nodes.discard(neighbor)
+                    unseen_nodes.discard(neighbor)#删除元素
                     to_process.add(neighbor)
 
         yield transforms.getSubnet(g, component_nodes)
 
 def is_connected(g, first_node=None):
-    """Check if graph `g` is connected."""
+    """Check if graph `g` is connected.判断是否是联通图"""
     unseen_nodes = set(g._nodes.keys())
     if first_node is not None:
         to_process = set([first_node])
@@ -75,7 +75,7 @@ def construct_directed_hash(edges):
     return construct_hash(edges, 'digraph')
 
 def construct_hash(events, graph_type):
-    """Construct a graph and return canonical hash.
+    """Construct a graph and return canonical hash构造图并返回规范哈希.
 
     A motif 'm' is isomorphic to a edge list 'edges' if
     'm.get_directed_hash(m.basic_type_map)' equals
