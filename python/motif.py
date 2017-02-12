@@ -1,8 +1,9 @@
 """General functions for representing and plotting motifs."""
 
 import sys
-sys.path.append('/home/wyn/TMFinder/PyBliss')
-sys.path.append('/home/wyn/TMFinder/PyBliss/lib/python')
+import os
+sys.path.append(os.path.dirname(os.getcwd())+'/PyBliss')
+sys.path.append(os.path.dirname(os.getcwd())+'/PyBliss/lib/python')
 import PyBliss
 
 from netpython import pynet
