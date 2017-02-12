@@ -1,6 +1,10 @@
 """General functions for representing and plotting motifs."""
 
 import sys
+sys.path.append('/home/wyn/TMFinder/PyBliss')
+sys.path.append('/home/wyn/TMFinder/PyBliss/lib/python')
+import PyBliss
+
 from netpython import pynet
 from netpython import visuals
 from netpython import transforms
