@@ -1,3 +1,14 @@
+使用步骤
+========
+注：必须使用有界面的Linux系统
+首先克隆文件夹到本地
+安装anaconda
+安装pygraphviz
+make PyBliss、bliss-0.73、src三个文件夹
+安装LAtex
+运行test文件
+
+
 TMFinder
 ========
 
